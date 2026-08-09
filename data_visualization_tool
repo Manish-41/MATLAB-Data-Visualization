@@ -1,1 +1,161 @@
+function data_visualization_tool
 
+    % Create main window
+    fig = uifigure('Name', 'Data Visualization Tool', ...
+                   'Position', [400 200 600 550]);
+
+    % Title
+    uilabel(fig, ...
+        'Text', 'Simple Data Visualization Tool', ...
+        'Position', [130 500 350 30], ...
+        'FontSize', 20, ...
+        'FontWeight', 'bold');
+
+    % X data label
+    uilabel(fig, ...
+        'Text', 'Enter X values:', ...
+        'Position', [50 450 150 25], ...
+        'FontSize', 14);
+
+    % X data input
+    xData = uieditfield(fig, 'text', ...
+        'Position', [50 415 500 30], ...
+        'Value', '1 2 3 4 5 6 7 8 9 10');
+
+
+    % Y data label
+    uilabel(fig, ...
+        'Text', 'Enter Y values:', ...
+        'Position', [50 370 150 25], ...
+        'FontSize', 14);
+
+    % Y data input
+    yData = uieditfield(fig, 'text', ...
+        'Position', [50 335 500 30], ...
+        'Value', '65 72 80 55 90 68 75 85 60 78');
+
+
+    % Line plot button
+    uibutton(fig, 'push', ...
+        'Text', 'Line Plot', ...
+        'Position', [50 270 140 40], ...
+        'FontSize', 14, ...
+        'ButtonPushedFcn', @linePlot);
+
+
+    % Histogram button
+    uibutton(fig, 'push', ...
+        'Text', 'Histogram', ...
+        'Position', [230 270 140 40], ...
+        'FontSize', 14, ...
+        'ButtonPushedFcn', @histogramPlot);
+
+
+    % Scatter plot button
+    uibutton(fig, 'push', ...
+        'Text', 'Scatter Plot', ...
+        'Position', [410 270 140 40], ...
+        'FontSize', 14, ...
+        'ButtonPushedFcn', @scatterPlot);
+
+
+    % Clear button
+    uibutton(fig, 'push', ...
+        'Text', 'Clear', ...
+        'Position', [230 210 140 40], ...
+        'FontSize', 14, ...
+        'ButtonPushedFcn', @clearData);
+
+
+    % Status message
+    status = uilabel(fig, ...
+        'Text', 'Enter data and select a plot.', ...
+        'Position', [100 155 400 30], ...
+        'FontSize', 13, ...
+        'HorizontalAlignment', 'center');
+
+
+    % Line plot function
+    function linePlot(~, ~)
+
+        x = str2num(xData.Value); %#ok<ST2NM>
+        y = str2num(yData.Value); %#ok<ST2NM>
+
+        if length(x) ~= length(y)
+
+            status.Text = 'Error: X and Y must have the same number of values.';
+            return;
+
+        end
+
+        figure;
+
+        plot(x, y, '-o', 'LineWidth', 2);
+
+        xlabel('Student Number');
+        ylabel('Marks');
+        title('Student Marks - Line Plot');
+        grid on;
+
+        status.Text = 'Line plot created successfully.';
+
+    end
+
+
+    % Histogram function
+    function histogramPlot(~, ~)
+
+        y = str2num(yData.Value); %#ok<ST2NM>
+
+        figure;
+
+        histogram(y);
+
+        xlabel('Marks');
+        ylabel('Number of Students');
+        title('Distribution of Student Marks');
+        grid on;
+
+        status.Text = 'Histogram created successfully.';
+
+    end
+
+
+    % Scatter plot function
+    function scatterPlot(~, ~)
+
+        x = str2num(xData.Value); %#ok<ST2NM>
+        y = str2num(yData.Value); %#ok<ST2NM>
+
+        if length(x) ~= length(y)
+
+            status.Text = 'Error: X and Y must have the same number of values.';
+            return;
+
+        end
+
+        figure;
+
+        scatter(x, y, 70, 'filled');
+
+        xlabel('Student Number');
+        ylabel('Marks');
+        title('Student Marks - Scatter Plot');
+        grid on;
+
+        status.Text = 'Scatter plot created successfully.';
+
+    end
+
+
+    % Clear function
+    function clearData(~, ~)
+
+        xData.Value = '';
+        yData.Value = '';
+
+        status.Text = 'Data cleared.';
+
+    end
+
+end
