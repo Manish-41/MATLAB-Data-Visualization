@@ -1,6 +1,6 @@
 function data_visualization_tool
 
-    % Create main window
+    % Create main WINDOW
     fig = uifigure('Name', 'Data Visualization Tool', ...
                    'Position', [400 200 600 550]);
 
@@ -119,8 +119,6 @@ function data_visualization_tool
         status.Text = 'Histogram created successfully.';
 
     end
-
-
     % Scatter plot function
     function scatterPlot(~, ~)
 
@@ -146,8 +144,6 @@ function data_visualization_tool
         status.Text = 'Scatter plot created successfully.';
 
     end
-
-
     % Clear function
     function clearData(~, ~)
 
